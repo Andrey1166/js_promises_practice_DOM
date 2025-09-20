@@ -6,12 +6,13 @@ const firstPromise = new Promise((resolve, reject) => {
     (e) => {
       if (e.button === 0) {
         resolve('First promise was resolved');
+        clearTimeout(timerId);
       }
     },
     { once: true },
   );
 
-  setTimeout(() => {
+  const timerId = setTimeout(() => {
     // eslint-disable-next-line prefer-promise-reject-errors
     reject('First promise was rejected');
   }, 3000);
@@ -31,7 +32,7 @@ const secondPromise = new Promise((resolve) => {
   );
 });
 
-secondPromise.then(successMessage).catch(errorMessage);
+secondPromise.then(successMessage);
 
 let leftClick = false;
 let rightClick = false;
@@ -55,7 +56,7 @@ const thirdPromise = new Promise((resolve, reject) => {
   document.addEventListener('mousedown', click);
 });
 
-thirdPromise.then(successMessage).catch(errorMessage);
+thirdPromise.then(successMessage);
 
 function successMessage(message) {
   const success = document.createElement('div');
