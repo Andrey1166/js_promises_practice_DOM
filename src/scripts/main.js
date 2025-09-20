@@ -1,6 +1,8 @@
 'use strict';
 
 const firstPromise = new Promise((resolve, reject) => {
+  let timerId;
+
   document.addEventListener(
     'mousedown',
     (e) => {
@@ -12,7 +14,7 @@ const firstPromise = new Promise((resolve, reject) => {
     { once: true },
   );
 
-  const timerId = setTimeout(() => {
+  timerId = setTimeout(() => {
     // eslint-disable-next-line prefer-promise-reject-errors
     reject('First promise was rejected');
   }, 3000);
