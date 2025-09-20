@@ -1,7 +1,10 @@
 'use strict';
 
 const firstPromise = new Promise((resolve, reject) => {
-  let timerId;
+  const timerId = setTimeout(() => {
+    // eslint-disable-next-line prefer-promise-reject-errors
+    reject('First promise was rejected');
+  }, 3000);
 
   document.addEventListener(
     'mousedown',
@@ -13,11 +16,6 @@ const firstPromise = new Promise((resolve, reject) => {
     },
     { once: true },
   );
-
-  timerId = setTimeout(() => {
-    // eslint-disable-next-line prefer-promise-reject-errors
-    reject('First promise was rejected');
-  }, 3000);
 });
 
 firstPromise.then(successMessage).catch(errorMessage);
@@ -36,10 +34,10 @@ const secondPromise = new Promise((resolve) => {
 
 secondPromise.then(successMessage);
 
-let leftClick = false;
-let rightClick = false;
-
 const thirdPromise = new Promise((resolve, reject) => {
+  let leftClick = false;
+  let rightClick = false;
+
   function click(e) {
     if (e.button === 0) {
       leftClick = true;
